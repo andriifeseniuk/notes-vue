@@ -6,12 +6,15 @@
     <br>
     <button v-if="!isDone" v-on:click="onMarkAsDone">Done</button>
     <span v-if="isDone" class="done-marker">Done</span>
+    <button v-on:click="onEdit">Edit</button>
     <button v-on:click="onRemove">Remove</button>
   </div>
 
 </template>
 
 <script>
+import router from '../router'
+
 export default {
   name: 'Note',
   props: {
@@ -32,6 +35,9 @@ export default {
       },
       onRemove: function() {
           this.isRemoved = true;
+      },
+      onEdit: function() {
+          router.push('Edit');
       }
   }
 }
