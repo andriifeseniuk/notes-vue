@@ -6,13 +6,11 @@
 
 <script>
 import MainPage from './components/MainPage.vue'
-import Note from './components/Note.vue'
 
 export default {
   name: 'app',
   components: {
-    MainPage,
-    Note
+    MainPage
   }
 }
 </script>

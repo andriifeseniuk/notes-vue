@@ -1,16 +1,17 @@
 <template>
   <div>
     <h1>Notes</h1>
-    <input v-model="title" placeholder="Title">
+
+    <input v-model="title" placeholder="Title" class="note-title">
     <br>
-    <textarea v-model="text" placeholder="Text"></textarea>
+    <textarea v-model="text" placeholder="Text" class="note-text"></textarea>
     <br>
     <button v-on:click="onAddNote">Add</button>
     <br>
     <ul>
-      <li v-for="note in notes" :key="note">
-        <div id="Note">
-          <Note v-bind:title="note.title" v-bind:text="note.text"/>
+      <li v-for="(note, index) in notes" :key="index">
+        <div>
+          <Note v-bind:initialTitle="note.title" v-bind:initialText="note.text"/>
         </div>
       </li>
     </ul>
@@ -28,12 +29,14 @@ export default {
       text: "",
       notes: [],
     }
-  }  ,
+  },
   methods: {
     onAddNote: function () {
-      const note = { text: this.text, title: this.title };
-      this.notes.push(note);
-      console.log(this.notes);
+      if (this.title && this.text) {
+        const note = { title: this.title, text: this.text };
+        this.notes.push(note);
+        //console.log(this.notes);
+      }
     }
   },
   components: {
@@ -43,8 +46,7 @@ export default {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h3 {
   margin: 40px 0 0;
 }
@@ -58,5 +60,21 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.note-container {
+    border: 1px solid gray;
+}
+.note-title {
+    width: 150px;
+    border:1px solid gray;
+    padding: 1px;
+}
+.note-text 
+{
+    width: 150px;
+    min-height: 50px;
+    border:1px solid gray;
+    padding: 1px;
 }
 </style>

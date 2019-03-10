@@ -1,19 +1,38 @@
 <template>
-  <div>
-    <input v-model="title" placeholder="Title">
+  <div v-if="!isRemoved" class="note-container">
+    <input v-model="title" placeholder="Title" class="note-title">
     <br>
-    <textarea v-model="text" placeholder="Text"></textarea>
+    <textarea v-model="text" placeholder="Text" class="note-text"></textarea>
     <br>
-    <button />
+    <button v-if="!isDone" v-on:click="onMarkAsDone">Done</button>
+    <span v-if="isDone" class="done-marker">Done</span>
+    <button v-on:click="onRemove">Remove</button>
   </div>
+
 </template>
 
 <script>
 export default {
   name: 'Note',
   props: {
-    title: String,
-    text: String
+    initialTitle: String,
+    initialText: String
+  },
+  data: function() {
+      return {
+          title: this.initialTitle,
+          text: this.initialText,
+          isDone: false,
+          isRemoved: false
+      }
+  },
+  methods: {
+      onMarkAsDone: function() {
+          this.isDone = true;
+      },
+      onRemove: function() {
+          this.isRemoved = true;
+      }
   }
 }
 
@@ -21,4 +40,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.done-marker {
+    color: green;
+}
 </style>
