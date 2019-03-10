@@ -23,20 +23,21 @@ import Note from './Note.vue'
 
 export default {
   name: 'MainPage',
+  computed: {
+    notes () {
+      return this.$store.state.notes;
+    }
+  },
   data: function() { 
     return {
       title: "",
-      text: "",
-      notes: [],
+      text: ""
     }
   },
   methods: {
     onAddNote: function () {
-      if (this.title && this.text) {
-        const note = { title: this.title, text: this.text };
-        this.notes.push(note);
-        //console.log(this.notes);
-      }
+      this.$store.commit('addNote', { title: this.title, text: this.text });
+      console.log('add');
     }
   },
   components: {
