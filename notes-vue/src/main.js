@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
+import v1 from 'uuid/v1'
+import { stat } from 'fs';
 
 Vue.config.productionTip = false
 
@@ -14,39 +16,43 @@ const store = new Vuex.Store({
   mutations: {
     addNote(state, payload) {
       if (payload.title && payload.text) {
-        const note = { title: payload.title, text: payload.text, isDone: false };
+        const id = v1();
+        const note = { id: id, title: payload.title, text: payload.text, isDone: false };
         state.notes.push(note);
-        return state.notes.lenght - 1;
+        return id;
       }
 
       return -1;
     },
 
     removeNote(state, payload) {
-      if (payload.index < 0 || payload.index > state.notes.length - 1) {
-        return undefined;
+      const index = state.notes.findIndex(n => n.id === payload.id);
+      if (index === -1) {
+        return null;
       }
 
-      return state.notes.splice(payload.index, 1);
+      return state.notes.splice(index, 1);
     },
 
     updateNote(state, payload) {
-      if (payload.index < 0 || payload.index > state.notes.length - 1) {
-        return undefined;
+      const index = state.notes.findIndex(n => n.id === payload.id);
+      if (index === -1) {
+        return null;
       }
 
-      state.notes[payload.index].title = payload.title;
-      state.notes[payload.index].text = payload.text;
+      state.notes[index].title = payload.title;
+      state.notes[index].text = payload.text;
       return state.notes[payload.index];
     },
 
     markAsDone(state, payload) {
-      if (payload.index < 0 || payload.index > state.notes.length - 1) {
-        return undefined;
+      const index = state.notes.findIndex(n => n.id === payload.id);
+      if (index === -1) {
+        return null;
       }
 
-      state.notes[payload.index].isDone = true;
-      return state.notes[payload.index];
+      state.notes[index].isDone = true;
+      return state.notes[index];
     }
   }
 })

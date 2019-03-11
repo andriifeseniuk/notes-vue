@@ -11,7 +11,7 @@
     <ul>
       <li v-for="(note, index) in notes" :key="index">
         <div>
-          <Note v-bind:initialTitle="note.title" v-bind:initialText="note.text"/>
+          <Note v-bind:note="note"/>
         </div>
       </li>
     </ul>
@@ -37,7 +37,6 @@ export default {
   methods: {
     onAddNote: function () {
       this.$store.commit('addNote', { title: this.title, text: this.text });
-      console.log('add');
     }
   },
   components: {

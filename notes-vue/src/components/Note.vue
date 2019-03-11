@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isRemoved" class="note-container">
+  <div class="note-container">
     <input v-model="title" placeholder="Title" class="note-title">
     <br>
     <textarea v-model="text" placeholder="Text" class="note-text"></textarea>
@@ -18,23 +18,25 @@ import router from '../router'
 export default {
   name: 'Note',
   props: {
-    initialTitle: String,
-    initialText: String
+      note: Object
   },
-  data: function() {
-      return {
-          title: this.initialTitle,
-          text: this.initialText,
-          isDone: false,
-          isRemoved: false
-      }
+  computed: {
+    title () {
+      return this.note.title;
+    },
+    text () {
+      return this.note.text;
+    },
+    isDone () {
+      return this.note.isDone;
+    }
   },
   methods: {
       onMarkAsDone: function() {
-          this.isDone = true;
+          this.$store.commit('markAsDone', { id: this.note.id });
       },
       onRemove: function() {
-          this.isRemoved = true;
+          this.$store.commit('removeNote', { id: this.note.id });
       },
       onEdit: function() {
           router.push('Edit');
