@@ -1,8 +1,8 @@
 <template>
   <div class="note-container">
-    <input v-model="title" placeholder="Title" class="note-title">
+    <input v-model="title" readonly class="note-title">
     <br>
-    <textarea v-model="text" placeholder="Text" class="note-text"></textarea>
+    <textarea v-model="text" readonly class="note-text"></textarea>
     <br>
     <button v-if="!isDone" v-on:click="onMarkAsDone">Done</button>
     <span v-if="isDone" class="done-marker">Done</span>
