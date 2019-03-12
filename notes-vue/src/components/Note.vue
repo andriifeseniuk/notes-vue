@@ -39,7 +39,7 @@ export default {
           this.$store.commit('removeNote', { id: this.note.id });
       },
       onEdit: function() {
-          router.push('Edit');
+          router.push({ name: 'edit', params: { id: this.note.id }});
       }
   }
 }

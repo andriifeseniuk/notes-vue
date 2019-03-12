@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from './components/MainPage'
+import EditPage from './components/EditPage'
 
 Vue.use(Router)
 
@@ -12,12 +13,9 @@ export default new Router({
       component: MainPage
     },
     {
-      path: '/edit',
       name: 'edit',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './components/EditPage')
+      path: '/edit/:id',
+      component: EditPage
     }
   ]
 })
