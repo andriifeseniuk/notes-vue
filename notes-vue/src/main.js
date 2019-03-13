@@ -4,55 +4,41 @@ import App from './App.vue'
 import router from './router'
 import v1 from 'uuid/v1'
 import { stat } from 'fs';
+import axios from 'axios';
 
 Vue.config.productionTip = false
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  state: {
-    notes: []
-  },
   mutations: {
-    addNote(state, payload) {
+
+  },
+  actions: {
+    async getNotes(context) {
+      return await axios.get('http://localhost:3000/notes');
+    },
+
+    async getNote(context, payload) {
+      return await axios.get(`http://localhost:3000/notes/${payload.id}`);
+    },
+
+    async addNote(context, payload) {
       if (payload.title && payload.text) {
         const id = v1();
         const note = { id: id, title: payload.title, text: payload.text, isDone: false };
-        state.notes.push(note);
-        return id;
-      }
 
-      return -1;
+        return await axios.post('http://localhost:3000/notes', note)
+      }
     },
 
-    removeNote(state, payload) {
-      const index = state.notes.findIndex(n => n.id === payload.id);
-      if (index === -1) {
-        return null;
-      }
-
-      return state.notes.splice(index, 1);
+    async removeNote(context, payload) {
+      return await axios.delete(`http://localhost:3000/notes/${payload.id}`)
     },
 
-    updateNote(state, payload) {
-      const index = state.notes.findIndex(n => n.id === payload.id);
-      if (index === -1) {
-        return null;
-      }
-
-      state.notes[index].title = payload.title;
-      state.notes[index].text = payload.text;
-      return state.notes[payload.index];
-    },
-
-    markAsDone(state, payload) {
-      const index = state.notes.findIndex(n => n.id === payload.id);
-      if (index === -1) {
-        return null;
-      }
-
-      state.notes[index].isDone = true;
-      return state.notes[index];
+    async updateNote(context, payload) {
+      const note = { title: payload.title, text: payload.text,isDone: payload.isDone };
+      return await axios.put(`http://localhost:3000/notes/${payload.id}`, note);
     }
   }
 })

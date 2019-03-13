@@ -1,0 +1,34 @@
+{
+  "notes": [
+    {
+      "title": "task 1",
+      "text": " Add, mark as Done and remove a note from the main page",
+      "isDone": true,
+      "id": 1
+    },
+    {
+      "title": "task 2",
+      "text": "Edit notes on a separate page",
+      "isDone": true,
+      "id": 2
+    },
+    {
+      "title": "task 3",
+      "text": "Find a note by name or text inside",
+      "isDone": true,
+      "id": 3
+    },
+    {
+      "title": "task 4",
+      "text": "Load notes by HTTP request (you can mock JSON with notes using any npm package like json-server)",
+      "isDone": true,
+      "id": 4
+    },
+    {
+      "title": "task 5",
+      "text": "Ability to archive your note and rearchive it back from Archive page of your app",
+      "isDone": true,
+      "id": 5
+    }
+  ]
+}

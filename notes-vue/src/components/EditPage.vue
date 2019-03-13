@@ -24,17 +24,19 @@ export default {
   },
   created: function() {
       this.id = this.$route.params.id;
-      const note = this.$store.state.notes.find(n => n.id === this.id);
-      if (note) {
-          this.title = note.title;
-          this.text = note.text;
-      }
+      const note = this.$store.dispatch('getNote', { id: this.id })
+      .then(res => {
+          this.title = res.data.title;
+          this.text = res.data.text;
+      });
   },
   methods: {
       onSave: function() {
           if (this.title && this.text) {
-              this.$store.commit('updateNote', { id: this.id, title: this.title, text: this.text });
-              router.push('/');
+            this.$store.dispatch('updateNote', { id: this.id, title: this.title, text: this.text, isDone: false })
+            .then(res => {
+                router.push('/');
+            });
           }
       },
       onCancel: function() {

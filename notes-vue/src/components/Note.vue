@@ -33,10 +33,12 @@ export default {
   },
   methods: {
       onMarkAsDone: function() {
-          this.$store.commit('markAsDone', { id: this.note.id });
+          this.$store.dispatch('updateNote', { id: this.note.id, title: this.note.title, text: this.note.text, isDone: true })
+          .then(res => this.$emit('note-updated'));
       },
       onRemove: function() {
-          this.$store.commit('removeNote', { id: this.note.id });
+          this.$store.dispatch('removeNote', { id: this.note.id })
+          .then(res => this.$emit('note-updated'));
       },
       onEdit: function() {
           router.push({ name: 'edit', params: { id: this.note.id }});
