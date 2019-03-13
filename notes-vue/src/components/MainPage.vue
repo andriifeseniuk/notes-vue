@@ -30,6 +30,8 @@
         </li>
       </ul>
     </div>
+    <br>
+    <router-link to="/archive">Archived notes</router-link>
   </div>
 </template>
 
@@ -49,9 +51,9 @@ export default {
   computed: {
     notes: function () {
       if (this.filter) {
-        return this.allNotes.filter(n => n.title.includes(this.filter) || n.text.includes(this.filter));
+        return this.allNotes.filter(n => !n.isArchived).filter(n => n.title.includes(this.filter) || n.text.includes(this.filter));
       } else {
-        return this.allNotes;
+        return this.allNotes.filter(n => !n.isArchived);
       }
     }
   },
@@ -105,19 +107,19 @@ a {
     border: 1px solid gray;
 }
 .note-title {
-    width: 150px;
+    width: 250px;
     border: 1px solid gray;
     padding: 1px;
 }
 .note-text 
 {
-    width: 150px;
+    width: 250px;
     min-height: 50px;
     border: 1px solid gray;
     padding: 1px;
 }
 .note-filter {
-    width: 150px;
+    width: 250px;
     border: 1px solid gray;
     padding: 1px;
 }

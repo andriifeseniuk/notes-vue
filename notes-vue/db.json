@@ -25,10 +25,17 @@
       "id": 4
     },
     {
+      "id": 5,
       "title": "task 5",
       "text": "Ability to archive your note and rearchive it back from Archive page of your app",
+      "isDone": true
+    },
+    {
+      "id": "a0764000-4582-11e9-8164-47e510d55325",
+      "title": "123",
+      "text": "123",
       "isDone": true,
-      "id": 5
+      "isArchived": false
     }
   ]
 }

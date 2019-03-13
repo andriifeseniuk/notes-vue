@@ -6,6 +6,8 @@
     <br>
     <button v-if="!isDone" v-on:click="onMarkAsDone">Done</button>
     <span v-if="isDone" class="done-marker">Done</span>
+    <button v-if="isArchived" v-on:click="onRearchive">Rearchive</button>
+    <button v-if="!isArchived" v-on:click="onArchive">Archive</button>
     <button v-on:click="onEdit">Edit</button>
     <button v-on:click="onRemove">Remove</button>
   </div>
@@ -29,11 +31,22 @@ export default {
     },
     isDone () {
       return this.note.isDone;
+    },
+    isArchived () {
+      return this.note.isArchived;
     }
   },
   methods: {
       onMarkAsDone: function() {
-          this.$store.dispatch('updateNote', { id: this.note.id, title: this.note.title, text: this.note.text, isDone: true })
+          this.$store.dispatch('updateNote', { id: this.note.id, title: this.note.title, text: this.note.text, isDone: true, isArcived: this.note.isArcived })
+          .then(res => this.$emit('note-updated'));
+      },
+      onArchive: function() {
+          this.$store.dispatch('updateNote', { id: this.note.id, title: this.note.title, text: this.note.text, isDone: this.note.isDone, isArchived: true })
+          .then(res => this.$emit('note-updated'));
+      },
+      onRearchive: function() {
+          this.$store.dispatch('updateNote', { id: this.note.id, title: this.note.title, text: this.note.text, isDone: this.note.isDone, isArchived: false })
           .then(res => this.$emit('note-updated'));
       },
       onRemove: function() {
